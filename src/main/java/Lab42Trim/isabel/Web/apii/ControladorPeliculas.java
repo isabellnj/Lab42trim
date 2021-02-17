@@ -29,54 +29,47 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class ControladorPeliculas {
-    private final MovieService movieService;
+    private MovieService movieService;
 
     ControladorPeliculas(MovieService movieService) {
 
         this.movieService = movieService;
     }
- 
-    //Ejercicio3 --> sacar lista
+
+
+
     @GetMapping("/movies")
-    public List<MovieDTO> getall(){
+    public List<MovieDTO> Get(@RequestParam(name="title", required = false, defaultValue = "") String title,
+    @RequestParam(name="year", required = false, defaultValue = "0") int year ) {
 
-    return movieService.getAll();
-    }
-
-    //Ejercicio4--> filtrado de peliculas por año y/o titulo
-
-
-    public List<MovieDTO> GetAllPeliculas() {
     
+     
+        if (!title.equals("") || year != 0){
+            return movieService.findBytittle(title, year);
+        }else{
 
-    return movieService.getAll();
-      
 
-    }
-
-
-    public List<MovieDTO>GetTitle ( String title){
-    ArrayList<MovieDTO>movie= new ArrayList<>();
-        for (MovieDTO movie1 : movieService.getAll()) {
-             if (movie1.getTitle().contains(title)){
-               
-                movie.add(new MovieDTO(movie1.getTitle(), movie1.getYear(), movie1.getPoster(), movie1.getSinopsis()));
-            }
+            return movieService.getAll();
         }
-        return movie;
-    }
 
+
+    }
+}
+
+    // // // Ejercicio3 --> sacar lista
+    // // @GetMapping("/movies")
+    // // public List<MovieDTO> getall() {
+
+    // //     return movieService.getAll();
+    // // }
+
+   
 
   
 
+    // Ejercicio5 --> CRUD
 
-
-   
-    
-
-
-   
-}
-
+    // Filtrar pelicula por id
+  
 
 

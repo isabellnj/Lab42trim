@@ -59,7 +59,10 @@ public class MovieService {
 
     }
 
-    
+    public List<MovieDTO> findBytittle(String tittle, int year){
+        return movieRepository.findMovieByTitle(tittle, year).stream().map(x -> modelMapper.map(x, MovieDTO.class)).collect(Collectors.toList());
+
+    }
 
 
    
