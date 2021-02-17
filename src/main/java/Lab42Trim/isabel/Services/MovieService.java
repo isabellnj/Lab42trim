@@ -65,6 +65,10 @@ public class MovieService {
     }
 
 
+    public List<MovieDTO> findByFilmId(Long id){
+        return movieRepository.findByMovieId(id).stream().map(x -> modelMapper.map(x, MovieDTO.class)).collect(Collectors.toList());
+
+    }
    
    
 }

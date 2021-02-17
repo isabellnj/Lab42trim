@@ -8,20 +8,17 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import Lab42Trim.isabel.Repositories.Entities.Movie;
-public interface MovieRepository extends JpaRepository<Movie, Long>{
 
+public interface MovieRepository extends JpaRepository<Movie, Long> {
 
-    
     @Query(value = "SELECT p " + " FROM Movie p " + " WHERE p.title LIKE %:title% OR p.year = :year")
     List<Movie> findMovieByTitle(
-        
-                @Param("title") String tittle,  @Param("year") int year);
-            
-                    
 
+            @Param("title") String tittle, @Param("year") int year);
+
+    @Query(value = "SELECT p " + " FROM Movie p " + " WHERE id= :id")
+    List<Movie> findByMovieId(
+
+            @Param("id") Long id);
 
 }
-
-
-    
-

@@ -36,12 +36,12 @@ public class FimsViewController {
         return modelo;
     }
 
-    // @GetMapping("/moviess/{id}")
-    // public ModelAndView PeliculaDetail(@PathVariable("id") int id) {
-    // ModelAndView mv = new ModelAndView("detailMovie");
-    // mv.addObject("movies", movieService.findById(id);
-    // return mv;
+    @GetMapping("/moviess/{id}")
+    public ModelAndView PeliculaDetail(@PathVariable("id") Long id) {
+    ModelAndView mv = new ModelAndView("detailMovie");
+    mv.addObject("movies", movieService.findByFilmId(id));
+    return mv;
 
-    // }
+    }
 
 }

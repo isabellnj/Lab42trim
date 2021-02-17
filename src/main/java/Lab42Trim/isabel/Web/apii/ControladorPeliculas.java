@@ -36,40 +36,61 @@ public class ControladorPeliculas {
         this.movieService = movieService;
     }
 
-
-
     @GetMapping("/movies")
-    public List<MovieDTO> Get(@RequestParam(name="title", required = false, defaultValue = "") String title,
-    @RequestParam(name="year", required = false, defaultValue = "0") int year ) {
+    public List<MovieDTO> Get(@RequestParam(name = "title", required = false, defaultValue = "") String title,
+            @RequestParam(name = "year", required = false, defaultValue = "0") int year) {
 
-    
-     
-        if (!title.equals("") || year != 0){
+        if (!title.equals("") || year != 0) {
             return movieService.findBytittle(title, year);
-        }else{
-
+        } else {
 
             return movieService.getAll();
         }
 
-
     }
-}
 
     // // // Ejercicio3 --> sacar lista
     // // @GetMapping("/movies")
     // // public List<MovieDTO> getall() {
 
-    // //     return movieService.getAll();
+    // // return movieService.getAll();
     // // }
-
-   
-
-  
 
     // Ejercicio5 --> CRUD
 
-    // Filtrar pelicula por id
-  
+    // Añadir pelicula
+    @PostMapping("/moviesAdd")
+    public MovieDTO addMovie(@RequestBody MovieDTO newMovie) {
+        for (MovieDTO movie : movieService.getAll()) {
+            if (movie.getId() == newMovie.getId()) {
+                return null;
+            }
+        }
+        movieService.add(newMovie);
+        return (MovieDTO) newMovie;
+    }
 
+    // Modificar pelicula
+    @PutMapping("/movies/{id}")
+    public MovieDTO Update(@RequestBody MovieDTO updaMovie, @PathVariable("id") Long id) {
 
+        return movieService.update(id, updaMovie);
+    }
+
+    // borrar pelicula
+    @DeleteMapping("/movies/{id}")
+    public void deleMovie(@PathVariable("id") Long id) {
+        movieService.delete(id);
+
+    }
+
+    // Ejercicio6 --> multilenguaje
+
+    @GetMapping("/movies/text")
+    public String Text(@RequestParam(name = "lang", required = false, defaultValue = "") String lang) {
+        var locale = new Locale(lang);
+        var messages = ResourceBundle.getBundle("i18n\\mesagges", locale);
+        return messages.getString("Main.film");
+    }
+
+}
