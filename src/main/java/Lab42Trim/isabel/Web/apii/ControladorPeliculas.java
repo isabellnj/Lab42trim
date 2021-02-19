@@ -40,7 +40,7 @@ public class ControladorPeliculas {
     public List<MovieDTO> Get(@RequestParam(name = "title", required = false, defaultValue = "") String title,
             @RequestParam(name = "year", required = false, defaultValue = "0") int year) {
 
-        if (!title.equals("") || year != 0) {
+        if (!title.equals("") && year != 0) {
             return movieService.findBytittle(title, year);
         } else {
 

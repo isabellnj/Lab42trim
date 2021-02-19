@@ -11,7 +11,7 @@ import Lab42Trim.isabel.Repositories.Entities.Movie;
 
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 
-    @Query(value = "SELECT p " + " FROM Movie p " + " WHERE p.title LIKE %:title% OR p.year = :year")
+    @Query(value = "SELECT p " + " FROM Movie p " + " WHERE p.title LIKE %:title% AND p.year = :year")
     List<Movie> findMovieByTitle(
 
             @Param("title") String tittle, @Param("year") int year);

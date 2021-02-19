@@ -29,12 +29,22 @@ public class FimsViewController {
     }
 
     @GetMapping("listMovies")
-
-    public ModelAndView movies() {
+    public ModelAndView movies(@RequestParam(name = "title", required = false, defaultValue = "") String title,
+    @RequestParam(name = "year", required = false, defaultValue = "0") int year) {
         ModelAndView modelo = new ModelAndView("listMovies");
-        modelo.addObject("movies", movieService.getAll());
+        modelo.addObject("movies", movieService.findBytittle(title, year));
         return modelo;
     }
+
+    // public ModelAndView movies() {
+    //     ModelAndView modelo = new ModelAndView("listMovies");
+    //     modelo.addObject("movies", movieService.getAll());
+    //     return modelo;
+    // }
+
+   
+
+   
 
     @GetMapping("/moviess/{id}")
     public ModelAndView PeliculaDetail(@PathVariable("id") Long id) {
