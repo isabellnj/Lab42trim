@@ -28,6 +28,7 @@ dependencies {
     runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
 >>>>>>> feature5
     compile 'org.modelmapper:modelmapper:1.1.0'
+      runtimeOnly 'com.microsoft.sqlserver:mssql-jdbc'
 	
 }
 
