@@ -32,9 +32,9 @@ public class MovieService {
 
     }
 
-    public MovieDTO update(Long ID, MovieDTO user) {
+    public MovieDTO update(Long ID, MovieDTO movie) {
 
-        Movie entityToInsert = modelMapper.map(user, Movie.class);
+        Movie entityToInsert = modelMapper.map(movie, Movie.class);
         Movie result = movieRepository.save(entityToInsert);
         return modelMapper.map(result, MovieDTO.class);
     }
