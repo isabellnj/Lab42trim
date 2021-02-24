@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 
-
 public class FimsViewController {
 
     private final MovieService movieService;
@@ -30,27 +29,42 @@ public class FimsViewController {
 
     @GetMapping("listMovies")
     public ModelAndView movies(@RequestParam(name = "title", required = false, defaultValue = "") String title,
-    @RequestParam(name = "year", required = false, defaultValue = "0") int year) {
+            @RequestParam(name = "year", required = false, defaultValue = "0") int year) {
         ModelAndView modelo = new ModelAndView("listMovies");
-        modelo.addObject("movies", movieService.findBytittle(title, year));
+
+        if (title.equals("") && year == 0) {
+            modelo.addObject("movies", movieService.getAll());
+        }
+
+        if (!title.equals("") && year == 0) {
+            modelo.addObject("movies", movieService.findMovieByTitlee(title));
+        }
+
+        if (title.equals("") && year != 0) {
+
+            modelo.addObject("movies", movieService.findMovieByYear(year));
+        }
+
+        if (!title.equals("") && year != 0) {
+
+            modelo.addObject("movies", movieService.findBytittle(title, year));
+        }
+
         return modelo;
     }
 
+    // @GetMapping("getAll")
     // public ModelAndView movies() {
-    //     ModelAndView modelo = new ModelAndView("listMovies");
-    //     modelo.addObject("movies", movieService.getAll());
-    //     return modelo;
+    // ModelAndView modelo = new ModelAndView("listMovies");
+    // modelo.addObject("movies", movieService.getAll());
+    // return modelo;
     // }
-
-   
-
-   
 
     @GetMapping("/moviess/{id}")
     public ModelAndView PeliculaDetail(@PathVariable("id") Long id) {
-    ModelAndView mv = new ModelAndView("detailMovie");
-    mv.addObject("movies", movieService.findByFilmId(id));
-    return mv;
+        ModelAndView mv = new ModelAndView("detailMovie");
+        mv.addObject("movies", movieService.findByMovieId(id));
+        return mv;
 
     }
 

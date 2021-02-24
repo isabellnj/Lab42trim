@@ -64,8 +64,17 @@ public class MovieService {
 
     }
 
+    public List<MovieDTO> findMovieByTitlee(String tittle){
+        return movieRepository.findMovieByTitlee(tittle).stream().map(x -> modelMapper.map(x, MovieDTO.class)).collect(Collectors.toList());
 
-    public List<MovieDTO> findByFilmId(Long id){
+    }
+
+    public List<MovieDTO> findMovieByYear(int year){
+        return movieRepository.findMovieByYear(year).stream().map(x -> modelMapper.map(x, MovieDTO.class)).collect(Collectors.toList());
+
+    }
+
+    public List<MovieDTO> findByMovieId(Long id){
         return movieRepository.findByMovieId(id).stream().map(x -> modelMapper.map(x, MovieDTO.class)).collect(Collectors.toList());
 
     }
